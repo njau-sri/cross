@@ -256,8 +256,6 @@ int AppCross::perform()
 
     write_phenotype(m_pred, m_par.out + ".parent.txt");
 
-    save_cross_prediction();
-
     std::cerr << "INFO: CROSS completed successfully\n";
 
     return 1;
@@ -482,41 +480,6 @@ void AppCross::save_allele_matrix() const
     std::cerr << "INFO: QTL-allele matrix was successfully saved\n";
 }
 
-void AppCross::save_cross_prediction() const
-{
-    std::ofstream ofs(m_par.out + ".cross.txt");
-
-    if ( ! ofs ) {
-        std::cerr << "ERROR: can't open file: " << m_par.out << ".cross\n";
-        return;
-    }
-
-    auto p = m_cross.ind.size();
-    auto n = m_cross.dat[0].size();
-    auto m = m_cross.dat.size();
-    auto t = m_trait.size();
-
-    ofs << "P1";
-    for (size_t i = 1; i < p; ++i)
-        ofs << "\tP" << i+1;
-    for (size_t i = 0; i < t; ++i) {
-        auto s = m_trait[i];
-        ofs << "\t" << s << ".MEAN\t" << s << ".SD";
-        for (auto e : m_perc)
-            ofs << "\t" << s << ".P" << e;
-    }
-    ofs << "\n";
-
-    for (size_t i = 0; i < n; ++i) {
-        ofs << m_cross.ind[0][i];
-        for (size_t j = 1; j < p; ++j)
-            ofs << "\t" << m_cross.ind[j][i];
-        for (size_t k = 0; k < m; ++k)
-            ofs << "\t" << m_cross.dat[k][i];
-        ofs << "\n";
-    }
-}
-
 void AppCross::update_chrlen(const vector<string> &chr, const vector<double> &pos)
 {
     auto n = chr.size();
@@ -637,16 +600,27 @@ void AppCross::predict_parent()
 void AppCross::cross_single_indep()
 {
     int n = m_gt.ind.size();
+    int t = m_trait.size();
     int popsize = m_par.size;
 
     vector< vector<allele_t> > geno;
     vector< vector<double> > ys;
 
-    vector< vector<string> > ind(2);
-    vector< vector<double> > dat( m_trait.size() * (m_perc.size() + 2) );
+    std::ofstream ofs(m_par.out + ".cross.txt");
 
-    for (auto &v : dat)
-        v.reserve(n*(n+1)/2);
+    if ( ! ofs ) {
+        std::cerr << "ERROR: can't open file: " << m_par.out << ".cross\n";
+        return;
+    }
+
+    ofs << "P1\tP2";
+    for (int i = 0; i < t; ++i) {
+        auto s = m_trait[i];
+        ofs << "\t" << s << ".MEAN\t" << s << ".SD";
+        for (auto e : m_perc)
+            ofs << "\t" << s << ".P" << e;
+    }
+    ofs << "\n";
 
     for (int i = 0; i < n; ++i) {
         for (int j = i + 1; j < n; ++j) {
@@ -656,37 +630,44 @@ void AppCross::cross_single_indep()
 
             adjust_prediction(i, j, ys);
 
-            ind[0].push_back(m_gt.ind[i]);
-            ind[1].push_back(m_gt.ind[j]);
+            ofs << m_gt.ind[i] << "\t" << m_gt.ind[j];
 
-            int c = -1;
             for (auto &v : ys) {
-                dat[++c].push_back( mean(v) );
-                dat[++c].push_back( sd(v) );
+                ofs << "\t" << mean(v) << "\t" << sd(v);
                 std::sort(v.begin(), v.end());
                 for (auto e : m_perc)
-                    dat[++c].push_back( percentile(e,v) );
+                    ofs << "\t" << percentile(e,v);
             }
+
+            ofs << "\n";
         }
     }
-
-    ind.swap(m_cross.ind);
-    dat.swap(m_cross.dat);
 }
 
 void AppCross::cross_single_linkage()
 {
     int n = m_gt.ind.size();
+    int t = m_trait.size();
     int popsize = m_par.size;
 
     vector< vector<allele_t> > geno;
     vector< vector<double> > ys;
 
-    vector< vector<string> > ind(2);
-    vector< vector<double> > dat( m_trait.size() * (m_perc.size() + 2) );
+    std::ofstream ofs(m_par.out + ".cross.txt");
 
-    for (auto &v : dat)
-        v.reserve(n*(n+1)/2);
+    if ( ! ofs ) {
+        std::cerr << "ERROR: can't open file: " << m_par.out << ".cross\n";
+        return;
+    }
+
+    ofs << "P1\tP2";
+    for (int i = 0; i < t; ++i) {
+        auto s = m_trait[i];
+        ofs << "\t" << s << ".MEAN\t" << s << ".SD";
+        for (auto e : m_perc)
+            ofs << "\t" << s << ".P" << e;
+    }
+    ofs << "\n";
 
     for (int i = 0; i < n; ++i) {
         for (int j = i + 1; j < n; ++j) {
@@ -696,34 +677,44 @@ void AppCross::cross_single_linkage()
 
             adjust_prediction(i, j, ys);
 
-            ind[0].push_back(m_gt.ind[i]);
-            ind[1].push_back(m_gt.ind[j]);
+            ofs << m_gt.ind[i] << "\t" << m_gt.ind[j];
 
-            int c = -1;
             for (auto &v : ys) {
-                dat[++c].push_back( mean(v) );
-                dat[++c].push_back( sd(v) );
+                ofs << "\t" << mean(v) << "\t" << sd(v);
                 std::sort(v.begin(), v.end());
                 for (auto e : m_perc)
-                    dat[++c].push_back( percentile(e,v) );
+                    ofs << "\t" << percentile(e,v);
             }
+
+            ofs << "\n";
         }
     }
-
-    ind.swap(m_cross.ind);
-    dat.swap(m_cross.dat);
 }
 
 void AppCross::cross_threeway_indep()
 {
     int n = m_gt.ind.size();
+    int t = m_trait.size();
     int popsize = m_par.size;
 
     vector< vector<allele_t> > geno;
     vector< vector<double> > ys;
 
-    vector< vector<string> > ind(3);
-    vector< vector<double> > dat( m_trait.size() * (m_perc.size() + 2) );
+    std::ofstream ofs(m_par.out + ".cross.txt");
+
+    if ( ! ofs ) {
+        std::cerr << "ERROR: can't open file: " << m_par.out << ".cross\n";
+        return;
+    }
+
+    ofs << "P1\tP2\tP3";
+    for (int i = 0; i < t; ++i) {
+        auto s = m_trait[i];
+        ofs << "\t" << s << ".MEAN\t" << s << ".SD";
+        for (auto e : m_perc)
+            ofs << "\t" << s << ".P" << e;
+    }
+    ofs << "\n";
 
     for (int i = 0; i < n; ++i) {
         for (int j = i + 1; j < n; ++j) {
@@ -734,36 +725,45 @@ void AppCross::cross_threeway_indep()
 
                 adjust_prediction(i, j, k, ys);
 
-                ind[0].push_back(m_gt.ind[i]);
-                ind[1].push_back(m_gt.ind[j]);
-                ind[2].push_back(m_gt.ind[k]);
+                ofs << m_gt.ind[i] << "\t" << m_gt.ind[j] << "\t" << m_gt.ind[k];
 
-                int c = -1;
                 for (auto &v : ys) {
-                    dat[++c].push_back( mean(v) );
-                    dat[++c].push_back( sd(v) );
+                    ofs << "\t" << mean(v) << "\t" << sd(v);
                     std::sort(v.begin(), v.end());
                     for (auto e : m_perc)
-                        dat[++c].push_back( percentile(e,v) );
+                        ofs << "\t" << percentile(e,v);
                 }
+
+                ofs << "\n";
             }
         }
     }
-
-    ind.swap(m_cross.ind);
-    dat.swap(m_cross.dat);
 }
 
 void AppCross::cross_threeway_linkage()
 {
     int n = m_gt.ind.size();
+    int t = m_trait.size();
     int popsize = m_par.size;
 
     vector< vector<allele_t> > geno;
     vector< vector<double> > ys;
 
-    vector< vector<string> > ind(3);
-    vector< vector<double> > dat( m_trait.size() * (m_perc.size() + 2) );
+    std::ofstream ofs(m_par.out + ".cross.txt");
+
+    if ( ! ofs ) {
+        std::cerr << "ERROR: can't open file: " << m_par.out << ".cross\n";
+        return;
+    }
+
+    ofs << "P1\tP2\tP3";
+    for (int i = 0; i < t; ++i) {
+        auto s = m_trait[i];
+        ofs << "\t" << s << ".MEAN\t" << s << ".SD";
+        for (auto e : m_perc)
+            ofs << "\t" << s << ".P" << e;
+    }
+    ofs << "\n";
 
     for (int i = 0; i < n; ++i) {
         for (int j = i + 1; j < n; ++j) {
@@ -774,36 +774,45 @@ void AppCross::cross_threeway_linkage()
 
                 adjust_prediction(i, j, k, ys);
 
-                ind[0].push_back(m_gt.ind[i]);
-                ind[1].push_back(m_gt.ind[j]);
-                ind[2].push_back(m_gt.ind[k]);
+                ofs << m_gt.ind[i] << "\t" << m_gt.ind[j] << "\t" << m_gt.ind[k];
 
-                int c = -1;
                 for (auto &v : ys) {
-                    dat[++c].push_back( mean(v) );
-                    dat[++c].push_back( sd(v) );
+                    ofs << "\t" << mean(v) << "\t" << sd(v);
                     std::sort(v.begin(), v.end());
                     for (auto e : m_perc)
-                        dat[++c].push_back( percentile(e,v) );
+                        ofs << "\t" << percentile(e,v);
                 }
+
+                ofs << "\n";
             }
         }
     }
-
-    ind.swap(m_cross.ind);
-    dat.swap(m_cross.dat);
 }
 
 void AppCross::cross_double_indep()
 {
     int n = m_gt.ind.size();
+    int t = m_trait.size();
     int popsize = m_par.size;
 
     vector< vector<allele_t> > geno;
     vector< vector<double> > ys;
 
-    vector< vector<string> > ind(4);
-    vector< vector<double> > dat( m_trait.size() * (m_perc.size() + 2) );
+    std::ofstream ofs(m_par.out + ".cross.txt");
+
+    if ( ! ofs ) {
+        std::cerr << "ERROR: can't open file: " << m_par.out << ".cross\n";
+        return;
+    }
+
+    ofs << "P1\tP2\tP3\tP4";
+    for (int i = 0; i < t; ++i) {
+        auto s = m_trait[i];
+        ofs << "\t" << s << ".MEAN\t" << s << ".SD";
+        for (auto e : m_perc)
+            ofs << "\t" << s << ".P" << e;
+    }
+    ofs << "\n";
 
     for (int i = 0; i < n; ++i) {
         for (int j = i + 1; j < n; ++j) {
@@ -815,38 +824,46 @@ void AppCross::cross_double_indep()
 
                     adjust_prediction(i, j, k, l, ys);
 
-                    ind[0].push_back(m_gt.ind[i]);
-                    ind[1].push_back(m_gt.ind[j]);
-                    ind[2].push_back(m_gt.ind[k]);
-                    ind[3].push_back(m_gt.ind[l]);
+                    ofs << m_gt.ind[i] << "\t" << m_gt.ind[j] << "\t" << m_gt.ind[k] << "\t" << m_gt.ind[l];
 
-                    int c = -1;
                     for (auto &v : ys) {
-                        dat[++c].push_back( mean(v) );
-                        dat[++c].push_back( sd(v) );
+                        ofs << "\t" << mean(v) << "\t" << sd(v);
                         std::sort(v.begin(), v.end());
                         for (auto e : m_perc)
-                            dat[++c].push_back( percentile(e,v) );
+                            ofs << "\t" << percentile(e,v);
                     }
+
+                    ofs << "\n";
                 }
             }
         }
     }
-
-    ind.swap(m_cross.ind);
-    dat.swap(m_cross.dat);
 }
 
 void AppCross::cross_double_linkage()
 {
     int n = m_gt.ind.size();
+    int t = m_trait.size();
     int popsize = m_par.size;
 
     vector< vector<allele_t> > geno;
     vector< vector<double> > ys;
 
-    vector< vector<string> > ind(4);
-    vector< vector<double> > dat( m_trait.size() * (m_perc.size() + 2) );
+    std::ofstream ofs(m_par.out + ".cross.txt");
+
+    if ( ! ofs ) {
+        std::cerr << "ERROR: can't open file: " << m_par.out << ".cross\n";
+        return;
+    }
+
+    ofs << "P1\tP2\tP3\tP4";
+    for (int i = 0; i < t; ++i) {
+        auto s = m_trait[i];
+        ofs << "\t" << s << ".MEAN\t" << s << ".SD";
+        for (auto e : m_perc)
+            ofs << "\t" << s << ".P" << e;
+    }
+    ofs << "\n";
 
     for (int i = 0; i < n; ++i) {
         for (int j = i + 1; j < n; ++j) {
@@ -858,26 +875,20 @@ void AppCross::cross_double_linkage()
 
                     adjust_prediction(i, j, k, l, ys);
 
-                    ind[0].push_back(m_gt.ind[i]);
-                    ind[1].push_back(m_gt.ind[j]);
-                    ind[2].push_back(m_gt.ind[k]);
-                    ind[3].push_back(m_gt.ind[l]);
+                    ofs << m_gt.ind[i] << "\t" << m_gt.ind[j] << "\t" << m_gt.ind[k] << "\t" << m_gt.ind[l];
 
-                    int c = -1;
                     for (auto &v : ys) {
-                        dat[++c].push_back( mean(v) );
-                        dat[++c].push_back( sd(v) );
+                        ofs << "\t" << mean(v) << "\t" << sd(v);
                         std::sort(v.begin(), v.end());
                         for (auto e : m_perc)
-                            dat[++c].push_back( percentile(e,v) );
+                            ofs << "\t" << percentile(e,v);
                     }
+
+                    ofs << "\n";
                 }
             }
         }
     }
-
-    ind.swap(m_cross.ind);
-    dat.swap(m_cross.dat);
 }
 
 void AppCross::adjust_prediction(int p1, int p2, vector< vector<double> > &ys) const

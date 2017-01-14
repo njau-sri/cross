@@ -24,8 +24,6 @@ private:
 
     void save_allele_matrix() const;
 
-    void save_cross_prediction() const;
-
     void update_chrlen(const vector<string> &chr, const vector<double> &pos);
 
     bool check_linkage_model() const;
@@ -98,18 +96,11 @@ private:
         vector< vector<double> > pos;
     };
 
-    struct Cross
-    {
-        vector< vector<string> > ind;
-        vector< vector<double> > dat;
-    };
-
     Params m_par;
     Genotype m_gt;
     Phenotype m_pt;
     Phenotype m_pred;
     GenetMap m_gmap;
-    Cross m_cross;
     std::map<string, double> m_chrlen;
     vector<int> m_perc;
     vector<string> m_trait;
