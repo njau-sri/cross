@@ -227,6 +227,8 @@ int AppCross::perform()
 
     predict_parent();
 
+    write_phenotype(m_pred, m_par.out + ".parent.txt");
+
     std::cerr << "INFO: recombination simulation model: " << (linkage ? "linkage" : "independence") << "\n";
 
     std::cerr << "INFO: performing " << m_par.type << " cross prediction...\n";
@@ -253,8 +255,6 @@ int AppCross::perform()
         std::cerr << "ERROR: invalid type of cross: " << m_par.type << "\n";
         return 1;
     }
-
-    write_phenotype(m_pred, m_par.out + ".parent.txt");
 
     std::cerr << "INFO: CROSS completed successfully\n";
 
