@@ -155,7 +155,6 @@ int AppCross::run(int argc, char *argv[])
     cmd->add("--hmp", "HapMap file",  "");
     cmd->add("--geno", "genotype data file", "");
     cmd->add("--map", "linkage map data file", "");
-    cmd->add("--pheno", "phenotype data file", "");
     cmd->add("--effect", "allele effect file", "");
     cmd->add("--pheno", "phenotype data file", "");
     cmd->add("--out", "output file", "appcross.out");
@@ -177,7 +176,6 @@ int AppCross::run(int argc, char *argv[])
     m_par.hmp = cmd->get("--hmp");
     m_par.geno = cmd->get("--geno");
     m_par.map = cmd->get("--map");
-    m_par.pheno = cmd->get("--pheno");
     m_par.effect = cmd->get("--effect");
     m_par.pheno = cmd->get("--pheno");
     m_par.out = cmd->get("--out");
