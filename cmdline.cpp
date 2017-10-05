@@ -25,7 +25,7 @@ void CmdLine::help() const
     std::cerr << "usage: " << m_usage << "\n";
 
     for (auto &e : m_argval)
-        std::cerr << "  " << std::setw(25) << e.first + "  <" + e.second + "> " << m_arginfo.at(e.first) << "\n";
+        std::cerr << "  " << std::setw(25) << e.first + "  <" + e.second + ">" << " " << m_arginfo.at(e.first) << "\n";
 
     for (auto &e : m_flagval)
         std::cerr << "  " << std::setw(25) << e.first << " " << m_flaginfo.at(e.first) << "\n";
