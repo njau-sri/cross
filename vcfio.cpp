@@ -6,8 +6,8 @@
 
 using std::size_t;
 
-namespace {
-
+namespace
+{
     int parse_vcf_gt(const char *s, size_t n, int &a, int &b)
     {
         auto beg = s;
