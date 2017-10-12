@@ -1,4 +1,4 @@
-# Cross
+# cross
 
 performs QTL-allele-based GS (Genomic Selection) for optimal cross
 
