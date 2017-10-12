@@ -1046,6 +1046,8 @@ namespace {
 
 int cross(int argc, char *argv[])
 {
+    std::cerr << "cross (Built on " __DATE__ " " __TIME__ ")\n";
+
     CmdLine cmd("cross [options]");
 
     cmd.add("--vcf", "VCF genotype file", "");
