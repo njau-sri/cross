@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Cross</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBoxData">
+     <property name="title">
+      <string>Data</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="0">
+       <widget class="QLabel" name="labelPheno">
+        <property name="text">
+         <string>Phenotype:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="lineEditPheno"/>
+      </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="pushButtonPheno">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEditEffect"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelEffect">
+        <property name="text">
+         <string>Allele effect:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="pushButtonEffect">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelMap">
+        <property name="text">
+         <string>Linkage map:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="pushButtonMap">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="lineEditMap"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineEditVcf"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="pushButtonVcf">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelVcf">
+        <property name="text">
+         <string>VCF:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="labelWork">
+        <property name="text">
+         <string>Output directory:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="lineEditWork"/>
+      </item>
+      <item row="4" column="2">
+       <widget class="QPushButton" name="pushButtonWork">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBoxOption">
+     <property name="title">
+      <string>Option</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelType">
+        <property name="text">
+         <string>Cross type:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBoxType">
+        <item>
+         <property name="text">
+          <string>Single cross</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Three-way cross</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Double cross</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelSize">
+        <property name="text">
+         <string>Sample size:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEditSize">
+        <property name="text">
+         <string>2000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelPct">
+        <property name="text">
+         <string>Sample percentile:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="lineEditPct">
+        <property name="text">
+         <string>1,25,50,75,100</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="plainTextEditLog">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(0, 255, 0);</string>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+     <property name="textVisible">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEditVcf</tabstop>
+  <tabstop>pushButtonVcf</tabstop>
+  <tabstop>lineEditEffect</tabstop>
+  <tabstop>pushButtonEffect</tabstop>
+  <tabstop>lineEditMap</tabstop>
+  <tabstop>pushButtonMap</tabstop>
+  <tabstop>lineEditPheno</tabstop>
+  <tabstop>pushButtonPheno</tabstop>
+  <tabstop>lineEditWork</tabstop>
+  <tabstop>pushButtonWork</tabstop>
+  <tabstop>comboBoxType</tabstop>
+  <tabstop>lineEditSize</tabstop>
+  <tabstop>lineEditPct</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
