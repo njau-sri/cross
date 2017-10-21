@@ -1046,7 +1046,7 @@ namespace {
 
 int cross(int argc, char *argv[])
 {
-    std::cerr << "cross (Built on " __DATE__ " " __TIME__ ")\n";
+    std::cerr << "CROSS (Built on " __DATE__ " " __TIME__ ")\n";
 
     CmdLine cmd("cross [options]");
 
