@@ -29,3 +29,5 @@ elif [ $1 == "win64" ]; then
     mv release/cross-gui.exe cross-$1/
 
 fi
+
+tar zcf cross-$1.tar.gz cross-$1
