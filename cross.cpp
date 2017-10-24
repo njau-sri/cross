@@ -49,7 +49,7 @@ namespace {
     Par par;
     std::mt19937 rng;
 
-    void parse_percentile(const std::string &pcts, std::vector<int> &pcti)
+    void parse_percent(const std::string &pcts, std::vector<int> &pcti)
     {
         std::vector<std::string> vs;
         split(pcts, ", \t", vs);
@@ -59,7 +59,7 @@ namespace {
         for (auto &e : vs) {
             int x = std::stoi(e);
             if (x <= 0 || x > 100) {
-                std::cerr << "WARNING: invalid percentile values: " << pcts << "\n";
+                std::cerr << "WARNING: invalid percent values: " << pcts << "\n";
                 return;
             }
             z.push_back(x);
@@ -1095,7 +1095,7 @@ int cross(int argc, char *argv[])
     LinkageMap lm;
 
     std::vector<int> pct = {1, 25, 50, 75, 100};
-    parse_percentile(par.pct, pct);
+    parse_percent(par.pct, pct);
 
     std::cerr << "INFO: reading genotype file...\n";
     if (read_vcf(par.vcf, gt) != 0)
