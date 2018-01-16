@@ -202,10 +202,11 @@ namespace {
                 continue;
             }
 
-            if (vs.size() < 3) {
-                std::cerr << "ERROR: expected at least 3 columns at line: " << ln << "\n";
-                return 1;
-            }
+            if (vs.size() != 3)
+                continue
+
+            if (vs[0].find("_ENV_") != std::string::npos)
+                continue;
 
             if (!curr.empty()) {
                 std::vector<std::string> as;
