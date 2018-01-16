@@ -203,7 +203,7 @@ namespace {
             }
 
             if (vs.size() != 3)
-                continue
+                continue;
 
             if (vs[0].find("_ENV_") != std::string::npos)
                 continue;
