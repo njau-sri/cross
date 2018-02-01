@@ -234,7 +234,7 @@ namespace {
         if (read_effect(par.effect, ae_trait, ae_locus, ae_allele, ae_effect) != 0)
             return 1;
 
-        std::cerr << "INFO: " << ae_locus.size() << " records were observed\n";
+        std::cerr << "INFO: " << ae_locus.size() << " allele records were observed\n";
 
         auto qtl = unique(ae_locus);
         traits = stable_unique(ae_trait);
@@ -327,7 +327,7 @@ namespace {
         if (read_map(par.map, mloc, mchr, mpos) != 0)
             return 1;
 
-        std::cerr << "INFO: " << mloc.size() << " loci\n";
+        std::cerr << "INFO: " << mloc.size() << " map records were observed\n";
 
         std::map<std::string, double> chrlen;
 
@@ -719,10 +719,7 @@ namespace {
             auto g1 = ptpred.dat[j][p1];
             auto g2 = ptpred.dat[j][p2];
             auto a = (y1 - g1 + y2 - g2) / 2;
-            if (std::isfinite(a)) {
-                for (auto &e : ys[j])
-                    e += a;
-            }
+            std::for_each(ys[j].begin(), ys[j].end(), [a](double &x) { x += a; });
         }
     }
 
@@ -737,10 +734,7 @@ namespace {
             auto g2 = ptpred.dat[j][p2];
             auto g3 = ptpred.dat[j][p3];
             auto a = (y1 - g1 + y2 - g2 + y3 - g3) / 3;
-            if (std::isfinite(a)) {
-                for (auto &e : ys[j])
-                    e += a;
-            }
+            std::for_each(ys[j].begin(), ys[j].end(), [a](double &x) { x += a; });
         }
     }
 
@@ -757,10 +751,7 @@ namespace {
             auto g3 = ptpred.dat[j][p3];
             auto g4 = ptpred.dat[j][p4];
             auto a = (y1 - g1 + y2 - g2 + y3 - g3 + y4 - g4) / 4;
-            if (std::isfinite(a)) {
-                for (auto &e : ys[j])
-                    e += a;
-            }
+            std::for_each(ys[j].begin(), ys[j].end(), [a](double &x) { x += a; });
         }
     }
 
@@ -1163,12 +1154,14 @@ int cross(int argc, char *argv[])
     else
         calc_add(gt, effects, gt.dat, ptpred.dat);
 
-    if (par.type == 2)
+    if (par.type == 2 && gt.ind.size() > 1)
         cross_pred_2(pct, gt, lm, pt, ptpred, traits, effects);
-    else if (par.type == 3)
+    else if (par.type == 3 && gt.ind.size() > 2)
         cross_pred_3(pct, gt, lm, pt, ptpred, traits, effects);
-    else if (par.type == 4)
+    else if (par.type == 4 && gt.ind.size() > 3)
         cross_pred_4(pct, gt, lm, pt, ptpred, traits, effects);
+    else
+        std::cerr << "ERROR: not enough individuals\n";
 
     write_qtl_allele_matrix(gt, traits, effects);
 
