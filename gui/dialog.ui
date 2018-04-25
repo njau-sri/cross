@@ -20,6 +20,23 @@
       <string>Data</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEditEffect"/>
+      </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="pushButtonPheno">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelEffect">
+        <property name="text">
+         <string>Allele effect:</string>
+        </property>
+       </widget>
+      </item>
       <item row="3" column="0">
        <widget class="QLabel" name="labelPheno">
         <property name="text">
@@ -30,34 +47,13 @@
       <item row="3" column="1">
        <widget class="QLineEdit" name="lineEditPheno"/>
       </item>
-      <item row="3" column="2">
-       <widget class="QPushButton" name="pushButtonPheno">
-        <property name="text">
-         <string>Browse...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEditEffect"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="labelEffect">
-        <property name="text">
-         <string>Allele effect:</string>
-        </property>
-       </widget>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineEditVcf"/>
       </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="pushButtonEffect">
         <property name="text">
          <string>Browse...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="labelMap">
-        <property name="text">
-         <string>Linkage map:</string>
         </property>
        </widget>
       </item>
@@ -71,11 +67,18 @@
       <item row="2" column="1">
        <widget class="QLineEdit" name="lineEditMap"/>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEditVcf"/>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelMap">
+        <property name="text">
+         <string>Linkage map:</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="pushButtonVcf">
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="lineEditWork"/>
+      </item>
+      <item row="5" column="2">
+       <widget class="QPushButton" name="pushButtonWork">
         <property name="text">
          <string>Browse...</string>
         </property>
@@ -88,18 +91,32 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
+      <item row="5" column="0">
        <widget class="QLabel" name="labelWork">
         <property name="text">
          <string>Output directory:</string>
         </property>
        </widget>
       </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="pushButtonVcf">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="labelWeight">
+        <property name="text">
+         <string>Weights:</string>
+        </property>
+       </widget>
+      </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="lineEditWork"/>
+       <widget class="QLineEdit" name="lineEditWeight"/>
       </item>
       <item row="4" column="2">
-       <widget class="QPushButton" name="pushButtonWork">
+       <widget class="QPushButton" name="pushButtonWeight">
         <property name="text">
          <string>Browse...</string>
         </property>
@@ -164,7 +181,7 @@
       <item row="2" column="1">
        <widget class="QLineEdit" name="lineEditPct">
         <property name="text">
-         <string>1,25,50,75,100</string>
+         <string>0,25,50,75,100</string>
         </property>
        </widget>
       </item>
@@ -214,11 +231,14 @@ color: rgb(0, 255, 0);</string>
   <tabstop>pushButtonMap</tabstop>
   <tabstop>lineEditPheno</tabstop>
   <tabstop>pushButtonPheno</tabstop>
+  <tabstop>lineEditWeight</tabstop>
+  <tabstop>pushButtonWeight</tabstop>
   <tabstop>lineEditWork</tabstop>
   <tabstop>pushButtonWork</tabstop>
   <tabstop>comboBoxType</tabstop>
   <tabstop>lineEditSize</tabstop>
   <tabstop>lineEditPct</tabstop>
+  <tabstop>plainTextEditLog</tabstop>
  </tabstops>
  <resources/>
  <connections/>

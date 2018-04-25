@@ -32,6 +32,8 @@ private slots:
 
     void on_pushButtonPheno_clicked();
 
+    void on_pushButtonWeight_clicked();
+
     void on_pushButtonWork_clicked();
 
     void on_buttonBox_accepted();

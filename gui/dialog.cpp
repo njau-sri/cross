@@ -63,6 +63,13 @@ void Dialog::on_pushButtonPheno_clicked()
         ui->lineEditPheno->setText(fileName);
 }
 
+void Dialog::on_pushButtonWeight_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Choose weights file"));
+    if (!fileName.isEmpty())
+        ui->lineEditWeight->setText(fileName);
+}
+
 void Dialog::on_pushButtonWork_clicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this, tr("Set output directory"));
@@ -87,6 +94,9 @@ void Dialog::on_buttonBox_accepted()
 
     if ( ! ui->lineEditPheno->text().isEmpty() )
         args << QLatin1String("--pheno") << ui->lineEditPheno->text();
+
+    if ( ! ui->lineEditWeight->text().isEmpty() )
+        args << QLatin1String("--wt") << ui->lineEditWeight->text();
 
     args << QLatin1String("--type") << QString::number(ui->comboBoxType->currentIndex() + 2);
 
