@@ -204,20 +204,15 @@ double calc_pheno_mean(const std::string &wh, const std::vector<std::string> &in
     int n = 0;
     double y = 0.0;
 
-    auto itr = std::find(ind.begin(), ind.end(), wh);
-    while (itr != ind.end()) {
-        auto k = itr - ind.begin();
-        if (std::isfinite(dat[k])) {
+    int m = ind.size();
+    for (int i = 0; i < m; ++i) {
+        if (ind[i] == wh && std::isfinite(dat[i])) {
             ++n;
-            y += dat[k];
+            y += dat[i];
         }
-        itr = std::find(itr, ind.end(), wh);
     }
 
-    if (n == 0)
-        return kNaN;
-
-    return y / n;
+    return n == 0 ? kNaN : y / n;
 }
 
 int write_pheno(const Phenotype &pt, const std::string &filename)
