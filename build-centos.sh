@@ -16,7 +16,7 @@ elif [ $1 == "win32" ]; then
 
     i686-w64-mingw32-g++ *.cpp -o cross-$1/cross.exe -s -O2 -std=c++11 -static
     i686-w64-mingw32-qmake-qt4 gui
-    make
+    make release
     i686-w64-mingw32-strip release/cross-gui.exe
     mv release/cross-gui.exe cross-$1/
 
@@ -24,7 +24,7 @@ elif [ $1 == "win64" ]; then
 
     x86_64-w64-mingw32-g++ *.cpp -o cross-$1/cross.exe -s -O2 -std=c++11 -static
     x86_64-w64-mingw32-qmake-qt4 gui
-    make
+    make release
     x86_64-w64-mingw32-strip release/cross-gui.exe
     mv release/cross-gui.exe cross-$1/
 
