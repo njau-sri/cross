@@ -75,6 +75,8 @@ else
 
 fi
 
+cd $TOP
+
 if [[ $1 == win* ]]; then
     zip -qr $PKG.zip $PKG
 else
