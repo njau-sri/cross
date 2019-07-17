@@ -80,6 +80,15 @@ void Dialog::on_pushButtonWork_clicked()
 void Dialog::on_buttonBox_accepted()
 {
     QString prog = QDir(QApplication::applicationDirPath()).filePath(QLatin1String("cross"));
+#ifdef Q_OS_DARWIN
+    if (prog.endsWith(QLatin1String(".app/Contents/MacOS"))) {
+        QDir dir(prog);
+        dir.cdUp();
+        dir.cdUp();
+        dir.cdUp();
+        prog = exe.absolutePath();
+    }
+#endif
 
     QStringList args;
 

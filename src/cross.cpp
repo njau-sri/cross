@@ -9,6 +9,10 @@
 #include "util.h"
 #include "split.h"
 
+#ifndef CROSS_VERSION
+#define CROSS_VERSION  "v1.2.dev"
+#endif
+
 namespace {
 
 static const double kNaN = std::numeric_limits<double>::quiet_NaN();
@@ -1350,7 +1354,7 @@ void write_qtl_allele_matrix(const Genotype &gt, const std::vector<std::string> 
 
 int cross(int argc, char *argv[])
 {
-    std::cerr << "CROSS (Built on " __DATE__ " " __TIME__ ")\n";
+    std::cerr << "CROSS " CROSS_VERSION " (Built on " __DATE__ " " __TIME__ ")\n";
 
     int info = parse_command_line(argc, argv);
     if (info != 0)
