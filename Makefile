@@ -10,11 +10,6 @@ LDFLAGS  := -s -static
 
 OBJ := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
 
-ifeq ($(RTM_GWAS_VERSION),)
-CROSS_VERSION := unknown
-endif
-CXXFLAGS += -DCROSS_VERSION=$(CROSS_VERSION)
-
 EXE := $(TARGET)
 
 ifeq ($(MAKECMDGOALS),win32)
