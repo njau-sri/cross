@@ -12,4 +12,4 @@ https://github.com/njau-sri/cross/wiki
 
 ### 中国下载镜像
 
-腾讯微云分享链接 https://share.weiyun.com/5mTC2ok
+腾讯微云分享链接 https://share.weiyun.com/56s5kTk
