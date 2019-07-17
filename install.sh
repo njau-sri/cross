@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER=v1.2.dev
+VER=v1.2
 
 PKG=cross-$VER-$1
 

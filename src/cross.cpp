@@ -10,7 +10,7 @@
 #include "split.h"
 
 #ifndef CROSS_VERSION
-#define CROSS_VERSION  "v1.2.dev"
+#define CROSS_VERSION  "v1.2"
 #endif
 
 namespace {
