@@ -8,7 +8,7 @@ https://github.com/njau-sri/cross/wiki
 
 ## Download
 
-[![Download cross](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/rtm-gwas/files/related/cross/)
+https://github.com/njau-sri/cross/releases
 
 ### 中国下载镜像
 
