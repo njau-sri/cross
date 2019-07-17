@@ -9,15 +9,16 @@ TOP=$(pwd)
 rm -rf $PKG
 mkdir $PKG
 
+make clean
+
 if [[ $1 == "glnx64" ]]; then
 
     make || exit 1
     cp cross $TOP/$PKG/
-    make clean
 
-    cd src
+    cd src/gui/
     make distclean
-    qmake-qt5 gui || exit 1
+    qmake-qt5 || exit 1
     make || exit 1
     # sudo apt install libqt5widgets5
     # sudo yum install qt5-qtbase-gui
@@ -30,9 +31,9 @@ elif [[ $1 == "win32" ]]; then
     cp cross.exe $TOP/$PKG/
     make clean
 
-    cd src
+    cd src/gui/
     make distclean
-    mingw32-qmake-qt4 "CONFIG += static" gui || exit 1
+    mingw32-qmake-qt4 "CONFIG += static" || exit 1
     make release || exit 1
     mingw-strip -s release/cross-gui.exe
     cp release/cross-gui.exe $TOP/$PKG/
@@ -43,9 +44,9 @@ elif [[ $1 == "win64" ]]; then
     cp cross.exe $TOP/$PKG/
     make clean
 
-    cd src
+    cd src/gui/
     make distclean
-    mingw64-qmake-qt4 "CONFIG += static" gui || exit 1
+    mingw64-qmake-qt4 "CONFIG += static" || exit 1
     make release || exit 1
     mingw-strip -s release/cross-gui.exe
     cp release/cross-gui.exe $TOP/$PKG/
@@ -61,9 +62,9 @@ elif [[ $1 == "macos" ]]; then
     export LDFLAGS="-L/usr/local/opt/qt/lib"
     export CPPFLAGS="-I/usr/local/opt/qt/include"
 
-    cd src
+    cd src/gui/
     make distclean
-    qmake gui || exit 1
+    qmake || exit 1
     make || exit 1
     macdeployqt cross-gui.app
     mv cross-gui.app $TOP/$PKG/
