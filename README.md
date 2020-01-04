@@ -1,7 +1,11 @@
-# cross
+# CROSS
 
 performs QTL-allele-based GS (Genomic Selection) for optimal cross
 
-Wiki: <https://github.com/njau-sri/cross/wiki>
+## Help
 
-[![Download cross](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/rtm-gwas/files/related/cross/)
+https://github.com/njau-sri/cross/wiki
+
+## Download
+
+https://github.com/njau-sri/cross/releases
