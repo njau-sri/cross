@@ -1,11 +1,13 @@
 # CROSS
 
-performs QTL-allele-based GS (Genomic Selection) for optimal cross
+## !!! Important Notice !!!
+
+**2020/06/25** the repository was moved to https://gitee.com/njau-sri/cross.
 
 ## Help
 
-https://github.com/njau-sri/cross/wiki
+https://gitee.com/njau-sri/rtm-gwas/wikis/pages
 
 ## Download
 
-https://github.com/njau-sri/cross/releases
+https://gitee.com/njau-sri/rtm-gwas/releases
