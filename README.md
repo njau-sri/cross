@@ -6,8 +6,8 @@
 
 ## Help
 
-https://gitee.com/njau-sri/rtm-gwas/wikis/pages
+https://gitee.com/njau-sri/cross/wikis/pages
 
 ## Download
 
-https://gitee.com/njau-sri/rtm-gwas/releases
+https://gitee.com/njau-sri/cross/releases
