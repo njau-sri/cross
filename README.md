@@ -2,7 +2,7 @@
 
 ## !!! Important Notice !!!
 
-**2020/06/25** the repository was moved to https://gitee.com/njau-sri/cross.
+## 2020/06/25 the repository was moved to https://gitee.com/njau-sri/cross
 
 ## Help
 
